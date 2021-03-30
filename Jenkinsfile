@@ -18,12 +18,19 @@ pipeline {
             }
         }
 
-        stage('Deploy Stage') {
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
             steps {
-                withMaven(maven : 'maven 3.6.3') {
-                    sh 'mvn deploy'
+                withSonarQubeEnv('SonarQube') {
+                    sh "mvn sonar:sonar"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
+
     }
 }
