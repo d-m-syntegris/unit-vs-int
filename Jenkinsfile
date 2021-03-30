@@ -25,8 +25,8 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner \
-                          -D sonar.login=admin \
-                          -D sonar.password=Ksk.1989 \
+                          -D sonar.login=cb5382d539272f1b950fe3cfa0547a73bc83723f \
+                          -D sonar.projectKey=sonarqubetest \
                           -D sonar.exclusions=vendor/**,resources/**,**/*.java \
                           -D sonar.host.url=http://172.17.0.3:9000/"
                 }
