@@ -24,10 +24,11 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "mvn sonar:sonar"
-                }
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                    sh "${scannerHome}/bin/sonar-scanner \
+                          -D sonar.login=admin \
+                          -D sonar.password=Ksk.1989 \
+                          -D sonar.exclusions=vendor/**,resources/**,**/*.java \
+                          -D sonar.host.url=http://localhost:9000/"
                 }
             }
         }
